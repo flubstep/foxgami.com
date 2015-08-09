@@ -1,0 +1,56 @@
+$background: #212121;
+$white: #eeeeee;
+$orange: #d63b27;
+$purple: #5b79b0;
+$green: #2ca866;
+
+body {
+  background: $background;
+  font-family: "Gill Sans";
+  font-weight: 100;
+  font-size: 16px;
+  letter-spacing: 0.8;
+  line-height: 22px;
+  color: $white;
+  padding: 48px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 100;
+  letter-spacing: 4;
+  line-height: 38px;
+  margin: 0;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 36px;
+}
+
+.large {
+  font-size: 12px;
+  font-weight: 400px;
+  letter-spacing: 1.5;
+}
+
+.small {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 200px;
+  letter-spacing: 1;
+}
+
+.textbox {
+  margin: 1em 0;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+}
+
+.flex-centered {
+  display: flex;
+  justify-content: center;
+}
