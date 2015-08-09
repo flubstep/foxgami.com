@@ -1,18 +1,39 @@
 $background: #212121;
 $white: #eeeeee;
+$gray: #565656;
 $orange: #d63b27;
 $purple: #5b79b0;
 $green: #2ca866;
 
 body {
   background: $background;
+  padding: 48px;
+  font-family: "Gill Sans";
+  color: $white;
+}
+
+.container {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+input {
+  height: 36px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1em;
+  color: $white;
+  border: 2px solid $gray;
+  border-radius: 18px;
+  background-color: rgba(0, 0, 0, 0);
   font-family: "Gill Sans";
   font-weight: 100;
   font-size: 16px;
   letter-spacing: 0.8;
-  line-height: 22px;
-  color: $white;
-  padding: 48px;
+}
+
+section {
+  margin-bottom: 36px;
 }
 
 .header h1 {
@@ -24,14 +45,17 @@ body {
   text-align: center;
 }
 
-.header {
-  margin-bottom: 36px;
-}
-
 .large {
   font-size: 12px;
-  font-weight: 400px;
+  font-weight: 400;
   letter-spacing: 1.5;
+}
+
+.medium {
+  font-weight: 100;
+  font-size: 16px;
+  letter-spacing: 0.8;
+  line-height: 22px;
 }
 
 .small {
@@ -53,4 +77,22 @@ body {
 .flex-centered {
   display: flex;
   justify-content: center;
+}
+
+.flex-centered-xy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.button {
+  color: $white;
+  background-color: $purple;
+  border: none;
+  width: 100%;
+  height: 36px;
+  margin: 12px auto;
+  border-radius: 18px;
 }
