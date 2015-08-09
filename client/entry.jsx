@@ -4,17 +4,25 @@ import 'styles/main.scss';
 
 import React from 'react/addons';
 import IndexComponent from 'components/Index/IndexComponent.jsx';
+import BrowseComponent from 'components/Browse/BrowseComponent.jsx';
+import {Route, DefaultRoute, run} from 'react-router';
 
 var messages = [
-	"HELLO ALBERT!",
-	"This is kathy.",
-	"Who knows what you'll find at FOXGAMI?",
-	"Meaning, FOXGAMI is just a domain name and logo mark right now.",
-	"Maybe it will have games?",
-	"Maybe it will have cute art?",
-	"Maybe just a cute learning experience?",
-	"*shrug*",
-	"PS I like foxes ^_^"
+  "HELLO ALBERT!",
+  "This is kathy.",
+  "Who knows what you'll find at FOXGAMI?",
+  "Meaning, FOXGAMI is just a domain name and logo mark right now.",
+  "Maybe it will have games?",
+  "Maybe it will have cute art?",
+  "Maybe just a cute learning experience?",
+  "*shrug*",
+  "PS I like foxes ^_^"
 ];
 
-React.render(<IndexComponent items={messages}/>, document.body);
+if (document.location.pathname === '/browse') {
+  React.render(<BrowseComponent />, document.body);
+} else {
+  React.render(<IndexComponent items={messages}/>, document.body);
+}
+
+document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
