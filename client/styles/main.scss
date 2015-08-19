@@ -10,6 +10,7 @@ body {
   background: $background;
   font-family: "Gill Sans";
   color: $white;
+  margin: 0;
 }
 
 .container {
@@ -116,6 +117,19 @@ section {
   height: 90%;
   margin: 5%;
   border-radius: 4px;
+}
+
+.photo-feed img {
+  width: 100%;
+  margin: 0;
+}
+
+.photo-feed .item p {
+  margin: 8px 16px;
+}
+
+.photo-feed .item .small {
+  font-weight: 100;
 }
 
 .flex-centered {
