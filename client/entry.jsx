@@ -5,6 +5,7 @@ import 'styles/main.scss';
 import React from 'react/addons';
 import IndexComponent from 'components/Index/IndexComponent.jsx';
 import BrowseComponent from 'components/Browse/BrowseComponent.jsx';
+import StoryPageComponent from 'components/StoryPage/StoryPageComponent.jsx';
 import {Route, DefaultRoute, run} from 'react-router';
 
 var messages = [
@@ -21,6 +22,8 @@ var messages = [
 
 if (document.location.pathname === '/browse') {
   React.render(<BrowseComponent />, document.body);
+} else if (document.location.pathname === '/item') {
+  React.render(<StoryPageComponent />, document.body);
 } else {
   React.render(<IndexComponent items={messages}/>, document.body);
 }
