@@ -27,5 +27,3 @@ if (document.location.pathname === '/browse') {
 } else {
   React.render(<IndexComponent items={messages}/>, document.body);
 }
-
-document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
