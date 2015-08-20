@@ -32,6 +32,12 @@ if (env.production) {
   });
 }
 
+app.get('/data/*', function(req, res) {
+  res.send(200, {
+    'app': 'something'
+  });
+});
+
 app.get('/*', function(req, res) {
   res.render('index', {
     env: env

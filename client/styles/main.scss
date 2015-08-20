@@ -10,6 +10,7 @@ body {
   background: $background;
   font-family: "Gill Sans";
   color: $white;
+  margin: 0;
 }
 
 .container {
@@ -27,6 +28,18 @@ body {
 .photo-container {
   height: 100%;
   width: 300%;
+}
+
+.padding-12 {
+  padding: 0 12px;
+}
+
+.padding-16 {
+  padding: 0 16px;
+}
+
+.horizontal-rule {
+  border-bottom: 1px solid #999;
 }
 
 .photo-carousel {
@@ -52,7 +65,11 @@ input {
 }
 
 section {
-  margin-bottom: 36px;
+  margin-bottom: 24px;
+}
+
+p {
+  margin: 0;
 }
 
 .header h1 {
@@ -81,7 +98,21 @@ section {
 .small {
   color: rgba(255, 255, 255, 0.6);
   font-size: 13px;
-  font-weight: 200px;
+  font-weight: 200;
+  letter-spacing: 1;
+}
+
+.x-small {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 100;
+  letter-spacing: 1;
+}
+
+.xx-small {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 100;
   letter-spacing: 1;
 }
 
@@ -108,14 +139,23 @@ section {
 .photo {
   width: 261px;
   height: 261px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 .photo-small {
   width: 90%;
   height: 90%;
   margin: 5%;
-  border-radius: 2px;
+  border-radius: 4px;
+}
+
+.story-photo img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.photo-feed .item p {
+  margin: 8px 16px;
 }
 
 .flex-centered {
@@ -138,4 +178,23 @@ section {
   height: 36px;
   margin: 12px auto;
   border-radius: $radius;
+}
+
+.button.elliptical {
+  width: 40%;
+  border-radius: 18px;
+  margin: 24px auto;
+}
+
+.username {
+  color: $purple;
+}
+
+.story-section {
+  margin-top: 24px;
+}
+
+.comment-text {
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.6);
 }
