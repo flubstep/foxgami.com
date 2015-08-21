@@ -20,7 +20,7 @@ var messages = [
   "PS I like foxes ^_^"
 ];
 
-if (document.location.pathname.startsWith('/item')) {
+if (document.location.pathname.substring(0, 5) == '/item') {
   React.render(<StoryPageComponent />, document.body);
 } else {
   React.render(<BrowseComponent />, document.body);

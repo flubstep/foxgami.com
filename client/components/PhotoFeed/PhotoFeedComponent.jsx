@@ -22,7 +22,7 @@ export default React.createClass({
 
   render() {
     return (
-    	<section className='photo-feed'>
+    	<section className='photo-feed outer'>
     	  {this.state.items.map((item, index) => {
         	return <PhotoFeedItem item={item} />
         })}
