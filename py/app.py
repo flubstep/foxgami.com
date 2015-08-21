@@ -5,6 +5,11 @@ from foxgami.red import Story
 
 app = Flask(__name__)
 
+@app.after_response
+def add_content_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
 
 def return_as_json(inner_f):
     @functools.wraps(inner_f)
