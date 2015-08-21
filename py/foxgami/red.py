@@ -65,7 +65,7 @@ class Story(object):
 
 
 def pull_latest(subreddit, after=None):
-    praw_stories = connection.get_subreddit(subreddit).get_hot(limit=10)
+    praw_stories = connection.get_subreddit(subreddit).get_hot(limit=25)
     return [Story.from_dict(s) for s in praw_stories]
 
 

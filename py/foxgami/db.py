@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 
 @functools.lru_cache()
 def engine():
-    return create_engine('postgresql://localhost/foxgami') 
+    return create_engine('postgresql://foxgami:foxgami@localhost/foxgami') 
 
 
 def query(sql, args=()):
