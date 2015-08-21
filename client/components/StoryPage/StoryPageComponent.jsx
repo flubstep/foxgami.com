@@ -7,7 +7,7 @@ export default React.createClass({
     return {
       item: {
         'title': 'Dog makes a bad ass leap',
-        'image_url': 'client/resources/clip1.jpg'
+        'image_url': '/client/resources/clip1.jpg'
       }
     };
   },
