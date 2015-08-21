@@ -5,7 +5,7 @@ from foxgami.red import Story
 
 app = Flask(__name__)
 
-@app.after_response
+@app.after_request
 def add_content_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
@@ -26,7 +26,7 @@ def return_as_json(inner_f):
 @app.route('/api/stories')
 @return_as_json
 def hardcoded_aww():
-    return Story.find()
+    return Story.find(25)
 
 
 @app.route('/api/stories/<string:story_id>')

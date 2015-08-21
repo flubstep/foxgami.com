@@ -4,6 +4,7 @@ import praw
 import datetime
 import requests
 import urllib
+from datetime import tzinfo, timedelta
 
 IMAGE_CONTENT_TYPES = {
     'image/png',
@@ -11,6 +12,14 @@ IMAGE_CONTENT_TYPES = {
     'image/jpeg',
     'image/gif',
 }
+
+# Include the time zone information in the datetime isoformat output
+# http://stackoverflow.com/questions/19654578/python-utc-datetime-objects-iso-format-dont-include-z-zulu-or-zero-offset
+class simple_utc(tzinfo):
+    def tzname(self):
+        return "UTC"
+    def utcoffset(self, dt):
+        return timedelta(0)
 
 connection = praw.Reddit(user_agent='Foxgami v1.2')
 
@@ -45,7 +54,7 @@ class Story(object):
             story_id = praw_story.id,
             title = praw_story.title,
             image_url = get_image_url(praw_story.url),
-            submitted_at = datetime.datetime.utcfromtimestamp(praw_story.created)
+            submitted_at = datetime.datetime.utcfromtimestamp(praw_story.created_utc)
             )
 
     @classmethod
@@ -60,7 +69,7 @@ class Story(object):
                 'id': row['reddit_id'],
                 'title': row['title'],
                 'image_url': row['image_url'],
-                'submitted_at': row['submitted_at'].isoformat()
+                'submitted_at': row['submitted_at'].replace(tzinfo=simple_utc()).isoformat()
             } for row in rows]
 
 
@@ -71,7 +80,7 @@ def pull_latest(subreddit, after=None):
 
 def get_image_url(url):
     r = requests.head(url)
-    if r.headers['content-type'] in IMAGE_CONTENT_TYPES:
+    if r.headers.get('content-type') in IMAGE_CONTENT_TYPES:
         return url
     elif r.status_code == 200:
         return convert_page_to_image_url(url)
