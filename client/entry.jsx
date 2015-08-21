@@ -20,10 +20,8 @@ var messages = [
   "PS I like foxes ^_^"
 ];
 
-if (document.location.pathname === '/browse') {
-  React.render(<BrowseComponent />, document.body);
-} else if (document.location.pathname === '/item') {
+if (document.location.pathname.startsWith('/item')) {
   React.render(<StoryPageComponent />, document.body);
 } else {
-  React.render(<IndexComponent items={messages}/>, document.body);
+  React.render(<BrowseComponent />, document.body);
 }
