@@ -6,7 +6,7 @@ export default React.createClass({
 
   render() {
     return (
-      <section class="outer">
+      <section>
         <img src={this.props.item.image_url} />
         <div className="padding-16 story-section">
           <p className="medium">{this.props.item.title}</p>

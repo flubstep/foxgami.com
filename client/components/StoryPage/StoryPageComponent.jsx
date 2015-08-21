@@ -14,7 +14,7 @@ export default React.createClass({
 
   render() {
     return (
-      <section className="story-photo">
+      <section className="story-photo outer">
         <StoryPhotoComponent item={this.state.item} />
       </section>
     );
