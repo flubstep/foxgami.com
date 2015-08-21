@@ -5,7 +5,7 @@ export default class HeaderComponent extends React.Component {
     return (
       <section className="header">
         <div className="flex-centered">
-          <img className="logo-small" src="client/resources/logo_large.png"></img>
+          <img className="logo-small" src="/client/resources/logo_large.png"></img>
         </div>
         <h1>FOXGAMI</h1>
       </section>
