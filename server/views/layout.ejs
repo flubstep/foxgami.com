@@ -7,7 +7,7 @@
   <%- body %>
 
   <% if (env.production) { %>
-    <script async src="/<%= env.assets.main.js %>"></script>
+    <script async src="/client/resources/foxgami.app.js"></script>
   <% } else { %>
     <script src="http://localhost:3000/client/main.js"></script>
   <% } %>
