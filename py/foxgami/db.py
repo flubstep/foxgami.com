@@ -10,4 +10,13 @@ def engine():
 def query(sql, args=()):
     e = engine()
     result = e.execute(sql, tuple(args))
-    return result 
+    if result:
+        return list(result)
+
+
+def query_single(sql, args=()):
+    rows = list(query(sql, args))
+    if len(rows) >= 1:
+        return rows[0]
+    else:
+        return None

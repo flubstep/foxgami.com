@@ -23,13 +23,45 @@ class simple_utc(tzinfo):
 
 connection = praw.Reddit(user_agent='Foxgami v1.2')
 
+class Comment(object):
+
+    def __init__(self, story_id, comment_id, author='', comment='', num_children=0, submitted_at=None):
+        self.story_id = story_id
+        self.comment_id = comment_id
+        self.author = author
+        self.comment = comment
+        self.num_children = num_children
+        self.submitted_at = submitted_at
+
+    def save(self):
+        db.query("DELETE FROM comments WHERE comment_id = %s", [self.comment_id])
+        db.query("""
+            INSERT INTO comments
+                (reddit_id, comment_id, comment, author, num_children, submitted_at)
+            VALUES
+                (%s, %s, %s, %s, %s, %s)
+            """, [self.story_id, self.comment_id, self.comment, self.author, self.num_children, self.submitted_at])
+
+    @classmethod
+    def from_dict(cls, story_id, praw_comment):
+        return cls(
+            story_id = story_id,
+            comment_id = praw_comment.id,
+            author = praw_comment.author.name,
+            comment = praw_comment.body,
+            num_children = len(praw_comment.replies),
+            submitted_at = datetime.datetime.utcfromtimestamp(praw_comment.created_utc)
+            )
+
+
 class Story(object):
 
-    def __init__(self, story_id, title=None, image_url=None, submitted_at=None):
+    def __init__(self, story_id, title=None, image_url=None, submitted_at=None, comments=None):
         self.story_id = story_id
         self.title = title
         self.image_url = image_url
         self.submitted_at = submitted_at
+        self.comments = comments or []
 
     def save(self):
         if self.image_url:
@@ -42,11 +74,8 @@ class Story(object):
                 """,
                     [self.story_id, self.title, self.image_url, self.submitted_at]
                 )
-        else:
-            pass
-
-    def update_comments(self):
-        pass
+            for comment in self.comments:
+                comment.save()
 
     @classmethod
     def from_dict(cls, praw_story):
@@ -54,19 +83,56 @@ class Story(object):
             story_id = praw_story.id,
             title = praw_story.title,
             image_url = get_image_url(praw_story.url),
-            submitted_at = datetime.datetime.utcfromtimestamp(praw_story.created_utc)
+            submitted_at = datetime.datetime.utcfromtimestamp(praw_story.created_utc),
+            comments = [
+                Comment.from_dict(praw_story.id, c)
+                for c in praw_story.comments
+                if isinstance(c, praw.objects.Comment) and c.author and c.body
+                ]
             )
 
     @classmethod
-    def find(cls, number=10):
+    def get(cls, story_id):
+        story = db.query_single("""
+            SELECT * FROM stories WHERE reddit_id = %s
+            """, [story_id])
+        comments = db.query("""
+            SELECT * FROM comments WHERE reddit_id = %s
+            """, [story_id])
+        if story:
+            return {
+                'data': {
+                    'id': story['reddit_id'],
+                    'type': 'story',
+                    'title': story['title'],
+                    'image_url': story['image_url'],
+                    'submitted_at': story['submitted_at'].replace(tzinfo=simple_utc()).isoformat()
+                    },
+                'linked': [
+                    {
+                        'id': comment['comment_id'],
+                        'type': 'comment',
+                        'user_name': comment['author'],
+                        'text': comment['comment'],
+                        'replies': comment['num_children'],
+                        'submitted_at': comment['submitted_at'].replace(tzinfo=simple_utc()).isoformat()
+                    } for comment in comments
+                ]
+            }
+        else:
+            return None
+
+    @classmethod
+    def find(cls, limit=10):
         rows = db.query("""
             SELECT * FROM stories
             ORDER BY submitted_at
             DESC LIMIT %s
-            """, [number])
+            """, [limit])
         return [
             {
                 'id': row['reddit_id'],
+                'type': 'story',
                 'title': row['title'],
                 'image_url': row['image_url'],
                 'submitted_at': row['submitted_at'].replace(tzinfo=simple_utc()).isoformat()
