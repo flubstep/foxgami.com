@@ -30,6 +30,7 @@ def hardcoded_aww():
 
 
 @app.route('/api/stories/<string:story_id>')
+@return_as_json
 def get_story(story_id):
     return Story.get(story_id)
 

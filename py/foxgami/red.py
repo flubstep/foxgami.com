@@ -120,7 +120,9 @@ class Story(object):
                 ]
             }
         else:
-            return None
+            return {
+                'data': None
+            }
 
     @classmethod
     def find(cls, limit=10):
