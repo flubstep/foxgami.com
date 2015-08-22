@@ -1,23 +1,31 @@
 import React from 'react';
 import StoryPhotoComponent from 'components/StoryPhoto/StoryPhotoComponent.jsx';
+import foxgamiApi from 'helpers/foxgamiApi.jsx';
 
 export default React.createClass({
 
   getInitialState() {
-    return {
-      item: {
-        'title': 'Dog makes a bad ass leap',
-        'image_url': '/client/resources/clip1.jpg'
-      }
-    };
+    return { item: null, comments: [] };
+  },
+
+  componentDidMount() {
+    foxgamiApi.get('/stories/' + this.props.storyId).then((story) => {
+      this.setState({ item: story.data, comments: story.linked });
+    });
   },
 
   render() {
-    return (
-      <section className="story-photo outer">
-        <StoryPhotoComponent item={this.state.item} />
-      </section>
-    );
+    if (this.state.item) {
+      return (
+        <section className="story-photo outer">
+          <StoryPhotoComponent item={this.state.item} comments={this.state.comments} />
+        </section>
+      );
+    } else {
+      return (
+        <section className="story-photo outer"></section>
+      );
+    }
   }
 
 })

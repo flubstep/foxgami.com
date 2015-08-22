@@ -21,7 +21,8 @@ var messages = [
 ];
 
 if (document.location.pathname.substring(0, 5) == '/item') {
-  React.render(<StoryPageComponent />, document.body);
+  var storyId = document.location.pathname.substring(6);
+  React.render(<StoryPageComponent storyId={storyId} />, document.body);
 } else {
   React.render(<BrowseComponent />, document.body);
 }

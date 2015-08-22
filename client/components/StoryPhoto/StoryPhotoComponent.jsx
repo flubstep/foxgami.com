@@ -14,7 +14,7 @@ export default React.createClass({
           <ShareButtonsComponent />
           <div className="horizontal-rule"></div>
         </div>
-        <CommentsFeedComponent />
+        <CommentsFeedComponent comments={this.props.comments} />
       </section>
     );
   }
