@@ -10,7 +10,7 @@ def engine():
 def query(sql, args=()):
     e = engine()
     result = e.execute(sql, tuple(args))
-    if result:
+    if result.returns_rows:
         return list(result)
 
 
