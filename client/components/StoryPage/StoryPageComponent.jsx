@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    foxgamiApi.get('/stories/' + this.props.storyId).then((story) => {
+    foxgamiApi.get('/stories/' + this.props.params.storyId).then((story) => {
       this.setState({ item: story.data, comments: story.linked });
     });
   },

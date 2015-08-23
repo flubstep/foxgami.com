@@ -6,23 +6,26 @@ import React from 'react/addons';
 import IndexComponent from 'components/Index/IndexComponent.jsx';
 import BrowseComponent from 'components/Browse/BrowseComponent.jsx';
 import StoryPageComponent from 'components/StoryPage/StoryPageComponent.jsx';
-import {Route, DefaultRoute, run} from 'react-router';
+import Router from 'react-router';
+import {Route, DefaultRoute, Link, RouteHandler} from 'react-router';
 
-var messages = [
-  "HELLO ALBERT!",
-  "This is kathy.",
-  "Who knows what you'll find at FOXGAMI?",
-  "Meaning, FOXGAMI is just a domain name and logo mark right now.",
-  "Maybe it will have games?",
-  "Maybe it will have cute art?",
-  "Maybe just a cute learning experience?",
-  "*shrug*",
-  "PS I like foxes ^_^"
-];
+var App = React.createClass({
+  render() {
+    return (
+      <div className="nav">
+        <RouteHandler />
+      </div>
+    );
+  }
+});
 
-if (document.location.pathname.substring(0, 5) == '/item') {
-  var storyId = document.location.pathname.substring(6);
-  React.render(<StoryPageComponent storyId={storyId} />, document.body);
-} else {
-  React.render(<BrowseComponent />, document.body);
-}
+var routes = (
+  <Route name="app" path="/" handler={App}>
+    <DefaultRoute handler={BrowseComponent} />
+    <Route name="item" path="item/:storyId" handler={StoryPageComponent} />
+  </Route>
+);
+
+Router.run(routes, ((Handler) => {
+  React.render(<Handler/>, document.body);
+}));

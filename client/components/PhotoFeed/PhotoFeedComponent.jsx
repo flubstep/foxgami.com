@@ -16,14 +16,13 @@ export default React.createClass({
       console.error("Error caught fetching stories:", error);
     });
   },
-
   render() {
     return (
-    	<section className='photo-feed outer'>
-    	  {this.state.items.map((item, index) => {
-        	return <PhotoFeedItem item={item} />
+      <section className='photo-feed outer'>
+        {this.state.items.map((item, index) => {
+          return <PhotoFeedItem key={item.id} item={item} />
         })}
-    	</section>
+      </section>
     );
   }
 });
