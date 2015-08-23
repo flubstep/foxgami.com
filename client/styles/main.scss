@@ -192,7 +192,11 @@ p {
 }
 
 // This is super hacky
-.button a {
+.nav {
+  height: 24px;
+  margin: 12px auto;
+}
+.nav a {
   text-decoration: none;
   color: $white;
   font-weight: 200;

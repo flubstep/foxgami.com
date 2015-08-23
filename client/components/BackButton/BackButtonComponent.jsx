@@ -5,7 +5,7 @@ export default React.createClass({
 
   render() {
     return (
-      <section className="button elliptical small flex-centered-xy">
+      <section className="nav elliptical small flex-centered-xy">
         <Link to="app">
           HOME
         </Link>
