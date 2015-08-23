@@ -14,7 +14,7 @@ export default React.createClass({
           } else {
             var commentDiv = <p className='textbox xx-small'>{comment.replies} replies</p>;
           }
-          return <section>
+          return <section key={comment.id}>
             <p className='username medium'>{comment.user_name}</p>
             <p className='comment-text medium'>{comment.text}</p>
             {commentDiv}

@@ -29,3 +29,5 @@ var routes = (
 Router.run(routes, ((Handler) => {
   React.render(<Handler/>, document.body);
 }));
+
+$(() => { $.stayInWebApp(); });
