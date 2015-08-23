@@ -1,5 +1,6 @@
 import React from 'react';
 import StoryPhotoComponent from 'components/StoryPhoto/StoryPhotoComponent.jsx';
+import BackButtonComponent from 'components/BackButton/BackButtonComponent.jsx';
 import foxgamiApi from 'helpers/foxgamiApi.jsx';
 
 export default React.createClass({
@@ -18,6 +19,7 @@ export default React.createClass({
     if (this.state.item) {
       return (
         <section className="story-photo outer">
+          <BackButtonComponent />
           <StoryPhotoComponent item={this.state.item} comments={this.state.comments} />
         </section>
       );

@@ -191,6 +191,13 @@ p {
   margin: 24px auto;
 }
 
+// This is super hacky
+.button a {
+  text-decoration: none;
+  color: $white;
+  font-weight: 200;
+}
+
 .username {
   color: $purple;
 }
