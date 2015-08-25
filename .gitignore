@@ -6,3 +6,4 @@ dist
 assets.json
 __pycache__
 py/venv/
+*.pyc
