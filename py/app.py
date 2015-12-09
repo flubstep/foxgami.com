@@ -1,7 +1,8 @@
 import json
 import functools
 from flask import Flask, Response
-from foxgami.red import Story
+from foxgami.red import Story, Story
+from foxgami.user import Users
 
 app = Flask(__name__)
 
@@ -33,6 +34,12 @@ def hardcoded_aww():
 @return_as_json
 def get_story(story_id):
     return Story.get(story_id)
+
+
+@app.route('/api/users')
+@return_as_json
+def get_user():
+    return Users.get_current()
 
 
 if __name__ == '__main__':
