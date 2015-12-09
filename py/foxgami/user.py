@@ -10,6 +10,6 @@ class Users(object):
                 'type': 'user',
                 'name': 'Albert Sheu',
                 'short_name': 'Albert',
-                'profile_image_url': 'https://google.com'
+                'profile_image_url': 'http://flubstep.com/images/sunglasses.jpg'
             }
         }
