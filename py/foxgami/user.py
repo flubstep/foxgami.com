@@ -13,3 +13,12 @@ class Users(object):
                 'profile_image_url': 'http://flubstep.com/images/sunglasses.jpg'
             }
         }
+
+    @classmethod
+    def get_logged_out(cls):
+        return {
+            'data': {
+                'id': 0,
+                'type': 'user'
+            }
+        }

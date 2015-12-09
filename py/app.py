@@ -1,6 +1,6 @@
 import json
 import functools
-from flask import Flask, Response
+from flask import Flask, Response, request
 from foxgami.red import Story, Story
 from foxgami.user import Users
 
@@ -39,7 +39,10 @@ def get_story(story_id):
 @app.route('/api/users')
 @return_as_json
 def get_user():
-    return Users.get_current()
+    if request.args.get('token'):
+        return Users.get_current()
+    else:
+        return Users.get_logged_out()
 
 
 if __name__ == '__main__':
