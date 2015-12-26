@@ -12,6 +12,8 @@ def query(sql, args=()):
     result = e.execute(sql, tuple(args))
     if result.returns_rows:
         return list(result)
+    elif sql.lower().startswith('INSERT'):
+        return e.lastrowid
 
 
 def query_single(sql, args=()):
