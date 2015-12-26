@@ -16,6 +16,7 @@ pickleshare==0.5
 praw==3.2.1
 psycopg2==2.6.1
 requests==2.7.0
+rethinkdb==2.2.0.post2
 simplegeneric==0.8.1
 six==1.9.0
 SQLAlchemy==1.0.8
