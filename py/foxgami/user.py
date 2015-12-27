@@ -53,10 +53,10 @@ class User(object):
         }
 
     @staticmethod
-    def row_to_json(row):
+    def row_to_json(row, with_session=False):
         if not row:
             return None
-        return {
+        user_obj = {
             'data': {
                 'id': row['id'],
                 'type': 'user',
@@ -65,6 +65,11 @@ class User(object):
                 'profile_image_url': row['profile_image_url']
             }
         }
+        if with_session:
+            session = Session.create(row['id'])
+            user_obj['extra'] = { 'session': session['id'] }
+        return user_obj
+
 
     @classmethod
     def create(cls, name, email, password, profile_image_url=None):

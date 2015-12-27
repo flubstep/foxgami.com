@@ -16,7 +16,6 @@ def test_user():
 
     User.row_to_json(user)
 
-    print(user)
     session_token = Session.create(user['id'])['id']
     session_obj = Session.get(session_token)
     assert_equal(session_obj['user_id'], user['id'])

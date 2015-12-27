@@ -22,21 +22,3 @@ def query_single(sql, args=()):
         return rows[0]
     else:
         return None
-
-
-'''
-create table sessions (
-    user_id bigint not null,
-    token character(32) not null,
-    primary key (token)
-);
-
-create table users (
-    user_id serial,
-    name character(255),
-    email character(255),
-    password_hash character(255),
-    profile_image_url character(255),
-    primary key (user_id)
-);
-'''

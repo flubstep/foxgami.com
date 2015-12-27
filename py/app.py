@@ -56,7 +56,7 @@ def create_user():
         email=user_info['email'],
         password=user_info['password']
         )
-    return User.row_to_json(User.get(user_id))
+    return User.row_to_json(User.get(user_id), with_session=True)
 
 
 if __name__ == '__main__':
