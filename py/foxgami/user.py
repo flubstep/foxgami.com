@@ -92,6 +92,17 @@ class User(object):
         return r.table('users').get(user_id)
 
     @classmethod
+    def get_by_email_and_password(cls, email, password):
+        password_hash = hash_password(password)
+        results = r.table('users').filter(r.row['email'] == email).run(conn)
+        for result in results:
+            hashed = result['password_hash']
+            if bcrypt.hashpw(password.encode('utf-8'), hashed) == hashed:
+                return result
+        else:
+            return None
+
+    @classmethod
     def get_logged_out(cls):
         return {
             'data': {

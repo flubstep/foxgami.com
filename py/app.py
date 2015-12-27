@@ -59,5 +59,16 @@ def create_user():
     return User.row_to_json(User.get(user_id), with_session=True)
 
 
+@app.route('/api/login', methods=['POST'])
+@return_as_json
+def login_user():
+    login_info = request.get_json()
+    user_info = User.get_by_email_password(
+        email=login_info['email'],
+        password=login_info['password']
+        )
+    return User.row_to_json(user_info, with_session=True)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
