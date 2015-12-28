@@ -89,7 +89,7 @@ class User(object):
 
     @classmethod
     def get(cls, user_id):
-        return r.table('users').get(user_id)
+        return r.table('users').get(user_id).run(conn)
 
     @classmethod
     def get_by_email_and_password(cls, email, password):
