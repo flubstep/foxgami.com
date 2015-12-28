@@ -55,7 +55,7 @@ class User(object):
     @staticmethod
     def row_to_json(row, with_session=False):
         if not row:
-            return None
+            return User.get_logged_out()
         user_obj = {
             'data': {
                 'id': row['id'],
