@@ -62,7 +62,7 @@ def get_user():
     if token:
         session = Session.get(token)
         if session:
-            return Users.get(session['user_id'])
+            return User.get(session['user_id'])
     return User.get_logged_out()
 
 
