@@ -42,7 +42,7 @@ def get_user():
     token = request.args.get('token')
     if token:
         session = Session.get(token)
-        if user_id:
+        if session:
             return Users.get(session['user_id'])
     return User.get_logged_out()
 
@@ -51,23 +51,23 @@ def get_user():
 @return_as_json
 def create_user():
     user_info = request.get_json()
-    user_id = User.create(
+    user = User.create(
         name=user_info['name'],
         email=user_info['email'],
         password=user_info['password']
         )
-    return User.row_to_json(User.get(user_id), with_session=True)
+    return User.row_to_json(user, with_session=True)
 
 
 @app.route('/api/login', methods=['POST'])
 @return_as_json
 def login_user():
     login_info = request.get_json()
-    user_info = User.get_by_email_password(
+    user = User.get_by_email_password(
         email=login_info['email'],
         password=login_info['password']
         )
-    return User.row_to_json(user_info, with_session=True)
+    return User.row_to_json(user, with_session=True)
 
 
 if __name__ == '__main__':
