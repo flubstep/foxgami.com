@@ -1,10 +1,28 @@
 import json
 import functools
+import random
 from flask import Flask, Response, request
-from foxgami.red import Story, Story
-from foxgami.user import Users
+from foxgami.red import Story
+from foxgami.user import User, Session
 
 app = Flask(__name__)
+
+
+DEFAULT_PROFILE_IMAGES = [
+    "http://www.foxgami.com/images/fox-portrait.png",
+    "http://www.foxgami.com/images/ness-portrait.png",
+    "http://www.foxgami.com/images/samus-portrait.png",
+    "http://www.foxgami.com/images/peach-portrait.png",
+    "http://www.foxgami.com/images/mario-portrait.png",
+    "http://www.foxgami.com/images/charizard-portrait.png",
+    "http://www.foxgami.com/images/pikachu-portrait.png",
+    "http://www.foxgami.com/images/kirby-portrait.png",
+    "http://www.foxgami.com/images/jigglypuff-portrait.png",
+    "http://www.foxgami.com/images/yoshi-portrait.png",
+    "http://www.foxgami.com/images/roy-portrait.png",
+    "http://www.foxgami.com/images/link-portrait.png"
+]
+
 
 @app.after_request
 def add_content_headers(response):
@@ -39,10 +57,36 @@ def get_story(story_id):
 @app.route('/api/users')
 @return_as_json
 def get_user():
-    if request.args.get('token'):
-        return Users.get_current()
-    else:
-        return Users.get_logged_out()
+    token = request.args.get('token')
+    if token:
+        session = Session.get(token)
+        if session:
+            return Users.get(session['user_id'])
+    return User.get_logged_out()
+
+
+@app.route('/api/users', methods=['POST'])
+@return_as_json
+def create_user():
+    user_info = request.get_json()
+    user = User.create(
+        name=user_info['name'],
+        email=user_info['email'],
+        password=user_info['password'],
+        profile_image_url=random.choice(DEFAULT_PROFILE_IMAGES)
+        )
+    return User.row_to_json(user, with_session=True)
+
+
+@app.route('/api/login', methods=['POST'])
+@return_as_json
+def login_user():
+    login_info = request.get_json()
+    user = User.get_by_email_password(
+        email=login_info['email'],
+        password=login_info['password']
+        )
+    return User.row_to_json(user, with_session=True)
 
 
 if __name__ == '__main__':
