@@ -1,3 +1,4 @@
+import sys
 import json
 import functools
 import random
@@ -90,4 +91,8 @@ def login_user():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if len(sys.argv) > 1:
+        port = int(sys.argv[1])
+    else:
+        port = 5000
+    app.run(debug=True, port=port)
