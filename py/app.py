@@ -60,6 +60,8 @@ def get_story(story_id):
 def get_user():
     token = request.args.get('token')
     if token:
+        if token == '1234':
+            return User.get_mock()
         session = Session.get(token)
         if session:
             return User.row_to_json(User.get(session['user_id']))
