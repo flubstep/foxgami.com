@@ -47,12 +47,12 @@ def return_as_json(inner_f):
 @return_as_json
 def get_stories():
     subreddit = request.args.get('subreddit', 'aww')
-    limit = request.args.get('limit', 25)
-    after = request.args.get('after')
+    limit = int(request.args.get('limit', 25))
+    before = request.args.get('before')
     return Story.find(
         subreddit=subreddit,
         limit=limit,
-        after=after
+        before=before
         )
 
 
