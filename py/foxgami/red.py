@@ -137,7 +137,7 @@ class Story(object):
                 WHERE submitted_at > %s
                 ORDER BY submitted_at
                 DESC LIMIT %s
-                """, [limit, after_time])
+                """, [after_time, limit])
         else:
             rows = db.query("""
                 SELECT * FROM stories
