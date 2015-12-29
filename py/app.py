@@ -45,12 +45,6 @@ def return_as_json(inner_f):
 
 @app.route('/api/stories')
 @return_as_json
-def hardcoded_aww():
-    return Story.find(25)
-
-
-@app.route('/api/stories/')
-@return_as_json
 def get_stories():
     subreddit = request.args.get('subreddit', 'aww')
     limit = request.args.get('limit', 25)
