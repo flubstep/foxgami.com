@@ -125,12 +125,25 @@ class Story(object):
             }
 
     @classmethod
-    def find(cls, limit=10):
-        rows = db.query("""
-            SELECT * FROM stories
-            ORDER BY submitted_at
-            DESC LIMIT %s
-            """, [limit])
+    def find(cls, subreddit='aww', limit=25, after=None):
+        if after:
+            # TODO: This isn't very efficient
+            after_row = db.query_single("""
+                SELECT submitted_at FROM stories WHERE reddit_id = %s
+                """, [after])
+            after_time = after_row['submitted_at']
+            rows = db.query("""
+                SELECT * FROM stories
+                WHERE submitted_at > %s
+                ORDER BY submitted_at
+                DESC LIMIT %s
+                """, [limit, after_time])
+        else:
+            rows = db.query("""
+                SELECT * FROM stories
+                ORDER BY submitted_at
+                DESC LIMIT %s
+                """, [limit])
         return [
             {
                 'id': row['reddit_id'],
