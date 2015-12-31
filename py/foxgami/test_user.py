@@ -1,11 +1,15 @@
 from nose.tools import *
 from .user import *
+from foxgami.rdb import r, conn
 
 def test_user():
     name = 'dummy user'
     email = 'dummy@user.com'
     password = 'dummypass'
     profile_url = 'http://dummy.com/profile.jpg'
+
+    r.table('users').delete().run(conn)
+    r.table('sessions').delete().run(conn)
 
     user = User.create(name, email, password, profile_url)
     user_id = user['id']
@@ -26,6 +30,11 @@ def test_user():
     assert_in('id', login_info)
     assert_equal(login_info['id'], user_id)
     assert_equal(login_info['email'], user['email'])
+
+    login_info = User.get_by_name_and_password(name, password)
+    assert_in('id', login_info)
+    assert_equal(login_info['id'], user_id)
+    assert_equal(login_info['name'], user['name'])
 
     fake_login = User.get_by_email_and_password(email, 'nopassword')
     assert_equal(fake_login, None)
